@@ -7,6 +7,7 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import java.util.Scanner;
 
 public class MadLib extends JFrame {
 	private JTextField textField;
@@ -71,7 +72,23 @@ public class MadLib extends JFrame {
 		getContentPane().add(textArea);
 	}
 
+public class MadLibs {
 	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter a color: ");
+		String color = scan.nextLine();
+		System.out.println("Enter a past tense verb: ");
+		String pastTenseVerb = scan.nextLine();
+		System.out.println("Enter and adjective: ");
+		String adjective = scan.nextLine();
+		System.out.println("Enter a noun: ");
+		String noun = scan.nextLine();
+		
+		System.out.print ( "The " + color + " dragon " +)
+		
+	}
+		
+		
 		// TODO Auto-generated method stub
 
 	}
