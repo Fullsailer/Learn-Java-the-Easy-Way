@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -97,18 +98,28 @@ public class MainActivity extends AppCompatActivity {
                 checkGuess();
             }
         }
-       ////////////////////////////
-        });
+
+        );
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
+        });
+
+    txtGuess.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+
+
+        @Override
+        public boolean onEditorAction (TextView v,int actionId, KeyEvent event) {
+        checkGuess();
+        return true;
+    }
         });
     }
 
@@ -124,7 +135,13 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                final CharSequence[] items = {"1 to 10", "1 to 100", "1 to 1000"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Select the Range:");
+                ///////////////////////////////
+        }
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
