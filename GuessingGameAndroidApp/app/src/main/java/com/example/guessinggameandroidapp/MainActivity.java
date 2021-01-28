@@ -53,8 +53,15 @@ public class MainActivity extends AppCompatActivity {
                 newGame();
             }
             } catch (Exception e) {
-                message = "Enter a whole number between 1 and 100.";
+                message = "Enter a whole number between 1 and " + range + ".";
         } finally {
+            if (numberOfTries >= maxTries)
+            {
+                message = "Sorry, you're out of tries. "+theNumber+" was the number.";
+                Toast.makeText(MainActivity.this, message,
+                        Toast.LENGTH_LONG).show();
+                newGame();
+            }
             lblOutput.setText(message);
             txtGuess.requestFocus();
             txtGuess.selectAll();
@@ -62,8 +69,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void newGame() {
-        theNumber = (int)(Math.random() * 100 + 1);
+        theNumber = (int)(Math.random() * range + 1);
+        maxTries=(int)(Math.log(range)/Math.log(2)+1);
+        numberOfTries = 0;
+        lblRange.setText("Enter a number between 1 and " + range + ".");
+        txtGuess.setText("" + range / 2);
+        txtGuess.requestFocus();
+        txtGuess.selectAll();
     }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,12 +86,18 @@ public class MainActivity extends AppCompatActivity {
         txtGuess = (EditText) findViewById(R.id.txtGuess);
         btnGuess = (Button) findViewById(R.id.btnGuess);
         lblOutput = (TextView) findViewById(R.id.lblOutput);
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        range = preferences.getInt("range", 100);
+        maxTries=(int)(Math.log(range)/Math.log(2)+1);
         newGame();
-        btnGuess.setOnClickListener(new View.OnClickListener(){
+        btnGuess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkGuess();
             }
+        }
+       ////////////////////////////
         });
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
