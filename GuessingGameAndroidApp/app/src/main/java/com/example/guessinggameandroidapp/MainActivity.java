@@ -1,5 +1,6 @@
 package com.example.guessinggameandroidapp;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -22,18 +24,32 @@ public class MainActivity extends AppCompatActivity {
     private Button btnGuess;
     private TextView lblOutput;
     private int theNumber;
+    private int numberOfTries;
+    private int rnage = 100;
+    private TextView lblRange;
+    private int maxTries = 7;
+
     public void checkGuess() {
         String guessText = txtGuess.getText().toString();
         String message = "";
         try {
             int guess = Integer.parseInt(guessText);
+            numberOfTries++;
             if (guess < theNumber)
-                message = guess + " is too low. Try again.";
+                message = guess + " is too low. You have " +(maxTries-numberOfTries)+" tries left.";
             else if (guess > theNumber)
-                message = guess + "is too high. Try again.";
+                message = guess + "is too high. You have "+(maxTries-numberOfTries)+" tries left.";
             else {
                 message = guess +
-                        " is correct. You win! Let's play again!";
+                        " is correct. You win after " + numberOfTries + " tries!";
+                SharedPreferences preferences =
+                        PreferenceManager.getDefaultSharedPreferences(this);
+                int gamesWon = preferences.getInt("gamesWon", 0) + 1;
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("gamesWon", gamesWon);
+                editor.apply();
+                Toast.makeText(MainActivity.this, message,
+                        Toast.LENGTH_LONG).show();
                 newGame();
             }
             } catch (Exception e) {
