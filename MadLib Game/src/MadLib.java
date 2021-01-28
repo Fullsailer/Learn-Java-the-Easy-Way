@@ -84,8 +84,10 @@ public class MadLibs {
 		System.out.println("Enter a noun: ");
 		String noun = scan.nextLine();
 		
-		System.out.print ( "The " + color + " dragon " +)
+		System.out.print ( "The " + color + " dragon " + pastTenseVerb + " at the " + adjective);
+		System.out.println(" knight, who rode in on a sturdy, giant " + noun + ".");
 		
+	}	
 	}
 		
 		
