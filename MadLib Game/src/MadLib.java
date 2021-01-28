@@ -8,12 +8,14 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.util.Scanner;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MadLib extends JFrame {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textAdjective;
+	private JTextField textVerb;
+	private JTextField textNoun;
+	private JTextField textColor;
 	public MadLib() {
 		getContentPane().setBackground(Color.GREEN);
 		setFont(new Font("Apple SD Gothic Neo", Font.BOLD, 12));
@@ -43,27 +45,37 @@ public class MadLib extends JFrame {
 		lblNoun.setBounds(275, 110, 93, 16);
 		getContentPane().add(lblNoun);
 		
-		textField = new JTextField();
-		textField.setBounds(163, 57, 100, 26);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		textAdjective = new JTextField();
+		textAdjective.setBounds(163, 57, 100, 26);
+		getContentPane().add(textAdjective);
+		textAdjective.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(163, 105, 100, 26);
-		getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		textVerb = new JTextField();
+		textVerb.setBounds(163, 105, 100, 26);
+		getContentPane().add(textVerb);
+		textVerb.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(380, 105, 130, 26);
-		getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		textNoun = new JTextField();
+		textNoun.setBounds(380, 105, 130, 26);
+		getContentPane().add(textNoun);
+		textNoun.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(380, 57, 130, 26);
-		getContentPane().add(textField_3);
-		textField_3.setColumns(10);
+		textColor = new JTextField();
+		textColor.setBounds(380, 57, 130, 26);
+		getContentPane().add(textColor);
+		textColor.setColumns(10);
 		
 		JButton btnViewMadLib = new JButton("Press Here to View MadLib");
+		btnViewMadLib.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String adjective = txtAdjective.getText();
+				String color = txtColor.getText();
+				String verb = txtVerb.getText();
+				String noun = txt.Noun.getText();
+				txtOutput.setText(" The " + color + " dragon " + verb + " at the " + adjective + " " + noun + ".\n" +
+				"And everyone lived happily ever after. \n" + "The end.");
+			}
+		});
 		btnViewMadLib.setBounds(163, 156, 223, 29);
 		getContentPane().add(btnViewMadLib);
 		
@@ -89,7 +101,13 @@ public class MadLibs {
 		
 	}	
 	}
+
+	public static void main(String[] args) {
 		
+		MadLibGUI theGame = new MadLibGUI();
+		
+		theGame.setSize(new Dimension(550,300));
+		theGame.setVisible(true);
 		
 		// TODO Auto-generated method stub
 
