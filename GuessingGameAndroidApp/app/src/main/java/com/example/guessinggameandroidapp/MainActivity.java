@@ -1,5 +1,6 @@
 package com.example.guessinggameandroidapp;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -140,7 +141,31 @@ public class MainActivity extends AppCompatActivity {
                 final CharSequence[] items = {"1 to 10", "1 to 100", "1 to 1000"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Select the Range:");
-                ///////////////////////////////
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        switch (item) {
+                            case 0:
+                                range = 10;
+                                storeRange(10);
+                                newGame();
+                                break;
+                        }
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+                return true;
+            case R.id.action_newgame:
+                newGame();
+                return true;
+            case R.id.action_gamestats:
+                SharedPreferences preferences =
+                        PreferencesManager.getDefaultSharedPreferences(this);
+                int gamesWon = preferences.getInt("gamesWon", 0);
+                AlertDialog statDialog = new AlertDialog(MainActivity.this).create();
+                stat//////////////////////////
         }
 
         //noinspection SimplifiableIfStatement
