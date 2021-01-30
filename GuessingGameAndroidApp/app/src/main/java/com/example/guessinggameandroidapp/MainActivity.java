@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void newGame() {
         theNumber = (int) (Math.random() * range + 1);
-        maxTries = (int) (Math.log(range) / Math.log(2) + 1);
+        maxTries = (int) (Math.log(range) / Math.log(2)+1);
         numberOfTries = 0;
         lblRange.setText("Enter a number between 1 and " + range + ".");
         txtGuess.setText("" + range / 2);
@@ -178,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
                 statDialog.setMessage("You have won " + gamesWon + "games. Way to go!");
                 statDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
-                            @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }
@@ -191,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
                 aboutDialog.setMessage("(c)2019 John Flynn.");
                 aboutDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
-                            @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }
