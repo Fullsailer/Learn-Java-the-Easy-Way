@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
+import android.view.MenuInflater;
 import android.view.View;
 
 import android.view.Menu;
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         lblOutput = (TextView) findViewById(R.id.lblOutput);
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
-        range = preferences.getInt("range", 100);
+        lblRange = (TextView) findViewById(R.id.textview_second); 
         maxTries = (int) (Math.log(range) / Math.log(2) + 1);
         newGame();
         btnGuess.setOnClickListener(new View.OnClickListener() {
@@ -124,14 +125,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
