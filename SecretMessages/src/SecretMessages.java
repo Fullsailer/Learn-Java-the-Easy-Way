@@ -4,8 +4,9 @@ public class SecretMessages {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Enter a message to encode or decode:");
+		System.out.println("Enter a message to encode or decode, or press ENTER to end:");
 		String message = scan.nextLine();
+		while (message.length() > 0) {
 		String output = "";
 		System.out.println("Enter a secret key (-25 to 25):");
 		int keyVal = Integer.parseInt(scan.nextLine());
@@ -20,8 +21,17 @@ public class SecretMessages {
 				if (input < 'a')
 					input += 26;
 			}
+			else if (input >= 'a' && input <= 'z')
+            { 
+                input += key;
+                if (input > 'z')
+                    input -= 26;
+                if (input < 'a')
+                    input += 26;
+            }
 			else if (input >= '0' && input <= '9')
 			{
+			
 				input += (keyVal % 10);
 				if (input > '9')
 					input -= 10;
@@ -33,6 +43,9 @@ public class SecretMessages {
 			// output += (char)(message.charAt(x) + key); old code from version 1
 		}
 		System.out.println(output);
+		System.out.println("Enter a message to encode or decode, or press ENTER to end:");
+        message = scan.nextLine();
+		}
 		scan.close();
 
 	}
