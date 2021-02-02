@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void newGame() {
         theNumber = (int) (Math.random() * range + 1);
-        maxTries = (int) (Math.log(range) / Math.log(2) + 1);
+        // maxTries = (int) (Math.log(range) / Math.log(2) + 1);
         numberOfTries = 0;
         lblRange.setText("Enter a number between 1 and " + range + ".");
         txtGuess.setText("" + range / 2);
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         txtGuess = (EditText) findViewById(R.id.txtGuess);
         btnGuess = (Button) findViewById(R.id.btnGuess);
         lblOutput = (TextView) findViewById(R.id.lblOutput);
-        lblRange = (TextView) findViewById(R.id.textView2);
+        //lblRange = (TextView) findViewById(R.id.textView);
         maxTries = (int) (Math.log(range) / Math.log(2) + 1);
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-} //Final closing brace of the MainActivity.java file
+
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
