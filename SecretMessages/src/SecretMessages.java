@@ -7,13 +7,24 @@ public class SecretMessages {
 		System.out.println("Enter a message to encode or decode, or press ENTER to end:");
 		String message1 = scan.nextLine();
 		String message = scan.nextLine();
+		String output = "";
 		for ( int x = message1.length()-1; x >= 0; x-- ) {
 		    message += message1.charAt(x);
 		}
-		while (message.length() > 0) {
-		String output = "";
-		System.out.println("Enter a secret key (-25 to 25):");
-		int keyVal = Integer.parseInt(scan.nextLine());
+		int keyVal=0;
+		while (keyVal==0) {
+		    System.out.println("Enter a secret key (-25 to 25):");
+		    try {
+		        keyVal = Integer.parseInt(scan.nextLine());
+		    }
+		    catch(Exception ex) { 
+		        System.out.println("Not a valid integer.");
+		    }
+		
+//		while (message.length() > 0) {
+//		String output = "";
+//		System.out.println("Enter a secret key (-25 to 25):");
+//		int keyVal = Integer.parseInt(scan.nextLine());
 		char key = (char) keyVal;
 		for (int x = 0; x < message.length(); x++ ) {
 			char input = message.charAt(x);
