@@ -18,6 +18,7 @@ public class SecretMessagesGUI extends JFrame implements SwingConstants {
 	private JTextField txtKey;
 	private JTextArea txtOut;
 	private JSlider slider;
+	private JButton btnMoveUp;
 	public String encode( String message, int keyVal ) {
 		String output = "";
 		char key = (char) keyVal;
@@ -78,10 +79,10 @@ public class SecretMessagesGUI extends JFrame implements SwingConstants {
 		getContentPane().add(txtKey);
 		txtKey.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Key:");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(227, 200, 32, 16);
-		getContentPane().add(lblNewLabel);
+		JLabel lblKey = new JLabel("Key:");
+		lblKey.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblKey.setBounds(227, 200, 32, 16);
+		getContentPane().add(lblKey);
 		
 		JButton btnNewButton = new JButton("Encode/Decode");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -99,7 +100,7 @@ public class SecretMessagesGUI extends JFrame implements SwingConstants {
 				}
 			}
 		});
-		btnNewButton.setBounds(338, 189, 156, 38);
+		btnNewButton.setBounds(327, 189, 125, 38);
 		getContentPane().add(btnNewButton);
 		
 		slider = new JSlider();
@@ -122,8 +123,21 @@ public class SecretMessagesGUI extends JFrame implements SwingConstants {
 		slider.setBackground(new Color(0, 0, 255));
 		slider.setBounds(25, 194, 190, 29);
 		getContentPane().add(slider);
-	}
-
+		
+		
+		btnMoveUp = new JButton("Move Up ^");
+        btnMoveUp.setBackground(new Color(135, 206, 235));
+        btnMoveUp.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                String temp = txtIn.getText();
+                txtIn.setText(txtOut.getText());
+                slider.setValue(-slider.getValue());
+            }
+        });
+		btnMoveUp.setBounds(453, 191, 85, 35);
+		getContentPane().add(btnMoveUp);
+    }
+	
 	public static void main(String[] args) {
 		SecretMessagesGUI theApp = new SecretMessagesGUI();
 		theApp.setSize(new java.awt.Dimension(600,400));
