@@ -12,6 +12,9 @@ import java.awt.Color;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.JScrollPane;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class SecretMessagesGUI extends JFrame implements SwingConstants {
 	private JTextArea txtIn;
@@ -19,6 +22,8 @@ public class SecretMessagesGUI extends JFrame implements SwingConstants {
 	private JTextArea txtOut;
 	private JSlider slider;
 	private JButton btnMoveUp;
+	private JScrollPane scrollPane;
+	private JScrollPane scrollPane_1;
 	public String encode( String message, int keyVal ) {
 		String output = "";
 		char key = (char) keyVal;
@@ -60,21 +65,34 @@ public class SecretMessagesGUI extends JFrame implements SwingConstants {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(6, 6, 543, 182);
+		getContentPane().add(scrollPane);
+		
 		txtIn = new JTextArea();
+		scrollPane.setViewportView(txtIn);
 		txtIn.setWrapStyleWord(true);
 		txtIn.setLineWrap(true);
 		txtIn.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		txtIn.setBounds(6, 6, 543, 182);
-		getContentPane().add(txtIn);
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(6, 232, 543, 135);
+		getContentPane().add(scrollPane_1);
 		
 		txtOut = new JTextArea();
+		scrollPane_1.setViewportView(txtOut);
 		txtOut.setWrapStyleWord(true);
 		txtOut.setLineWrap(true);
 		txtOut.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		txtOut.setBounds(6, 232, 543, 135);
-		getContentPane().add(txtOut);
 		
 		txtKey = new JTextField();
+		txtKey.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				int key = Integer.parseInt( txtKey.getText() );
+                slider.setValue(key);
+			}
+		});
 		txtKey.setBounds(259, 194, 66, 26);
 		getContentPane().add(txtKey);
 		txtKey.setColumns(10);
