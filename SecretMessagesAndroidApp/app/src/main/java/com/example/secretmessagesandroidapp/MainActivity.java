@@ -69,6 +69,16 @@ public class MainActivity extends AppCompatActivity {
         sb = (SeekBar)findViewById(R.id.seekBar);
         btn = (Button)findViewById(R.id.button);
 
+        btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public  void onClick(View v) {
+                int key = Integer.parseInt(txtKey.getText().toString());
+                String message = txtIn.getText().toString();
+                String output = encode(message, key);
+                txtOut.setText(output);
+            }
+        });
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
