@@ -12,8 +12,50 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity {
+    EditText txtIn;
+    EditText txtKey;
+    EditText txtOut;
+    SeekBar sb;
+    Button btn;
+    public String encode( String message, int keyVal ) {
+        String output = "";
+        char key = (char) keyVal;
+        for ( int x = 0; x < message.length(); x++ ) {
+            char input = message.charAt(x);
+            if (input >= 'A' && input <= 'z')
+            {
+                input += key;
+                if (input > 'Z')
+                    input -= 26;
+                if (input < 'A')
+                    input += 26;
+            }
+            else if (input >= 'a' && input <= 'z')
+            {
+                input += key;
+                if (input > 'z')
+                    input -= 26;
+                if (input < 'a')
+                    input += 26;
+            }
+            else if (input >= '0' && input <= '9')
+            {
+                input += (keyVal % 10);
+                    if (input > '9')
+                        input -= 10;
+                    if (input < '0')
+                        input += 10;
+            }
+            output += input;
+        }
+        return output;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        txtIn = (EditText)findViewById(R.id.txtIn);
+        txtKey = (EditText)findViewById(R.id.txtKey);
+        txtOut = (EditText)findViewById(R.id.txtOut);
+        sb = (SeekBar)findViewById(R.id.seekBar);
+        btn = (Button)findViewById(R.id.button);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
