@@ -1,5 +1,6 @@
 package com.example.secretmessagesandroidapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -15,6 +16,10 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     EditText txtIn;
@@ -22,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
     EditText txtOut;
     SeekBar sb;
     Button btn;
+    Button btnMoveUp;
+
     public String encode( String message, int keyVal ) {
         String output = "";
         char key = (char) keyVal;
         for ( int x = 0; x < message.length(); x++ ) {
             char input = message.charAt(x);
-            if (input >= 'A' && input <= 'z')
+            if (input >= 'A' && input <= 'Z')
             {
                 input += key;
                 if (input > 'Z')
@@ -68,7 +75,11 @@ public class MainActivity extends AppCompatActivity {
         txtOut = (EditText)findViewById(R.id.txtOut);
         sb = (SeekBar)findViewById(R.id.seekBar);
         btn = (Button)findViewById(R.id.button);
-
+        btnMoveUp = (Button)findViewById(R.id.btnMoveUp);
+        Intent receivedIntent = getIntent();
+        String receivedText = receivedIntent.getStringExtra(Intent.EXTRA_TEXT);
+        if (receivedText != null)
+            txtIn.setText(receivedText);
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public  void onClick(View v) {
@@ -76,6 +87,15 @@ public class MainActivity extends AppCompatActivity {
                 String message = txtIn.getText().toString();
                 String output = encode(message, key);
                 txtOut.setText(output);
+                sb.setProgress(key + 13);
+            }
+        });
+        btnMoveUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtIn.setText(txtOut.getText().toString());
+                sb.setProgress(26-(sb.getProgress()));
+                txtKey.setText("" + (sb.getProgress()-13) );
             }
         });
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -84,8 +104,10 @@ public class MainActivity extends AppCompatActivity {
                 int key = sb.getProgress() - 13;
                 String message = txtIn.getText().toString();
                 String output = encode(message, key);
-                txtOut.setText("" + key);
+                txtOut.setText(output);
+                txtKey.setText("" + key);
             }
+
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -102,8 +124,19 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Secret Message "+
+                        DateFormat.getDateTimeInstance().format(new Date()));
+                shareIntent.putExtra(Intent.EXTRA_TEXT, txtOut.getText().toString());
+                try {
+                    startActivity(Intent.createChooser(shareIntent, "Share message..."));
+                    finish();
+                }
+                catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(MainActivity.this, "Error: Couldn't share.",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
