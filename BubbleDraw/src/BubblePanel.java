@@ -14,6 +14,8 @@ public class BubblePanel extends JPanel {
 		setBackground(Color.BLACK);
 		//testBubbles();
 		addMouseListener( new BubbleListener() );
+		addMouseListener( new BubbleListener() );
+		addMouseListener( new BubbleListener() );
 	}
 	public void paintComponent(Graphics canvas) {
 		super.paintComponent(canvas);
@@ -34,6 +36,16 @@ public class BubblePanel extends JPanel {
 		public void mousePressed(MouseEvent e) {
 			bubbleList.add(new Bubble(e.getX(), e.getY(), size));
 			repaint();
+		}
+		public void mouseDragged(MouseEvent e) {
+			bubbleList.add(new Bubble(e.getX(), e.getY(), size));
+			repaint();
+		}
+		public void mouseWheelMoved(MouseWheelEvent e) {
+			if(System.getProperty("os.name").startsWith("Mac"))
+				size += e.getUnitsToScroll();
+			else
+				size -= e.getUnitsToScroll();
 		}
 	}
 	private class Bubble {
