@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.util.Random;
 import java.awt.Color;
 import javax.swing.JPanel;
+import javax.swing.JButton;
 
 public class BubblePanel extends JPanel {
 	Random rand = new Random();
@@ -16,6 +17,35 @@ public class BubblePanel extends JPanel {
 		timer = new Timer(delay, new BubbleListener() );
 		bubbleList = new ArrayList<Bubble>();
 		setBackground(Color.BLACK);
+		
+		JPanel panel = new JPanel();
+		add(panel);
+		
+		JButton btnPause = new JButton("Pause");
+		btnPause.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			JButton btn = (JButton)e.getSource();
+			if (btn.getText().equals("Pause")) {
+				timer.stop();
+				btn.setText("Start");
+			}
+			else {
+				timer.start();
+				btn.setText("Pause");
+				}
+			}
+		});
+		panel.add(btnPause);
+		
+		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argo) {
+				bubbleList = new ArrayList<Bubble>();
+				repaint();
+			}
+		});
+		panel.add(btnClear);
+		
 		//testBubbles();
 		addMouseListener( new BubbleListener() );
 		addMouseListener( new BubbleListener() );
