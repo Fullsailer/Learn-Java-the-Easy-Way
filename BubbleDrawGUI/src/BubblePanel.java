@@ -65,6 +65,8 @@ public class BubblePanel extends JPanel {
 		private int y;
 		private int size;
 		private Color color;
+		private int xspeed, yspeed;
+		private final int MAX_SPEED = 5;
 		public Bubble(int newX, int newY, int newSize) {
 			x = newX;
 			y = newY;
@@ -73,13 +75,16 @@ public class BubblePanel extends JPanel {
 					rand.nextInt(256),
 					rand.nextInt(256),
 					rand.nextInt(256) );
+			xspeed = rand.nextInt(MAX_SPEED * 2 + 1) - MAX_SPEED;
+			yspeed = rand.nextInt(MAX_SPEED * 2 + 1) - MAX_SPEED;
 		}
 		public void draw(Graphics canvas) {
 			canvas.setColor(color);
 			canvas.fillOval(x - size/2, y - size/2, size, size);
 		}
 		public void update() {
-			y -=5;
+			x += xspeed;
+			y += yspeed;
 		}
 	}
 }
