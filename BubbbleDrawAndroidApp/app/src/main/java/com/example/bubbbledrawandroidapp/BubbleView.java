@@ -51,10 +51,17 @@ public class BubbleView extends ImageView implements View.OnTouchListener {
     }
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        for (int n = 0; n < motionEvent.getPointerCount(); n++) {
-            int x = (int) motionEvent.getX(n);
-            int y = (int) motionEvent.getY(n);
-            int s = rand.nextInt(size) + size;
+        if (motionEvent.getPointerCount() > 1)
+            for (int n = 0; n < motionEvent.getPointerCount(); n++) {
+                int x = (int) motionEvent.getX(n);
+                int y = (int) motionEvent.getY(n);
+                int s = rand.nextInt(size) + size;
+                bubbleList.add(new Bubble(x, y, s));
+            }
+        else {
+            int x = (int) motionEvent.getX();
+            int y = (int) motionEvent.getY();
+            int s = rand.nextInt(size) + size*3;
             bubbleList.add(new Bubble(x, y, s));
         }
         return true;
@@ -76,6 +83,17 @@ public class BubbleView extends ImageView implements View.OnTouchListener {
                     rand.nextInt(256) );
             xspeed = rand.nextInt(MAX_SPEED * 2) - MAX_SPEED;
             yspeed = rand.nextInt(MAX_SPEED * 2) - MAX_SPEED;
+        }
+        public Bubble(int newX, int newY, int newSize, int sp1, int sp2){
+            x = newX;
+            y = newY;
+            size = newSize;
+            color = Color.argb(rand.nextInt(256),
+                    rand.nextInt(256),
+                    rand.nextInt(256),
+                    rand.nextInt(256) );
+            xspeed = sp1;
+            yspeed = sp2;
         }
         public void draw(Canvas canvas){
             myPaint.setColor(color);
