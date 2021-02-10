@@ -65,7 +65,7 @@ public class BubbleView extends ImageView implements View.OnTouchListener {
         private int size;
         private int color;
         private int xspeed, yspeed;
-        private final int MAX_SPEED = 15;
+        private final int MAX_SPEED = 45;
         public Bubble(int newX, int newY, int newSize){
             x = newX;
             y = newY;
