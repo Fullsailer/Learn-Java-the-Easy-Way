@@ -124,14 +124,16 @@ public class BubblePanel extends JPanel {
 		private int xspeed, yspeed;
 		private final int MAX_SPEED = 5;
 		public Bubble(int newX, int newY, int newSize) {
-			x = newX;
-			y = newY;
+			x = (newX / newSize) * newSize + newSize/2;
+			y = (newY / newSize) * newSize + newSize/2;
+			//x = newX; //Old code
+			//y = newY; //Old code
 			size = newSize;
 			color = new Color( rand.nextInt(256),
 					rand.nextInt(256),
 					rand.nextInt(256),
 					rand.nextInt(256) );
-			 xspeed = yspeed = 2;
+			 //xspeed = yspeed = 2;
 			//xspeed = rand.nextInt(MAX_SPEED * 2 + 1) - MAX_SPEED;
 			//yspeed = rand.nextInt(MAX_SPEED * 2 + 1) - MAX_SPEED;
 			//if (xspeed == 0)
