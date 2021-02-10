@@ -6,6 +6,10 @@ import java.util.Random;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JSlider;
+import javax.swing.JLabel;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class BubblePanel extends JPanel {
 	Random rand = new Random();
@@ -13,6 +17,7 @@ public class BubblePanel extends JPanel {
 	int size = 25;
 	Timer timer;
 	int delay = 33;
+	JSlider slider;
 	public BubblePanel() {
 		timer = new Timer(delay, new BubbleListener() );
 		bubbleList = new ArrayList<Bubble>();
@@ -35,6 +40,25 @@ public class BubblePanel extends JPanel {
 				}
 			}
 		});
+		
+		JLabel lblNewLabel = new JLabel("Animation Speed:");
+		panel.add(lblNewLabel);
+		
+		slider = new JSlider(); //Remove "JSlider" from beginning of line
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+			int speed = slider.getValue() + 1;
+			int delay = 1000 / speed;
+			timer.setDelay(delay);
+			}
+		});
+		slider.setValue(30);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		slider.setMinorTickSpacing(5);
+		slider.setMaximum(120);
+		slider.setMajorTickSpacing(30);
+		panel.add(slider);
 		panel.add(btnPause);
 		
 		JButton btnClear = new JButton("Clear");
