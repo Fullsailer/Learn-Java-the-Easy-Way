@@ -18,6 +18,8 @@ public class BubblePanel extends JPanel {
 	Timer timer;
 	int delay = 33;
 	JSlider slider;
+	
+	
 	public BubblePanel() {
 		timer = new Timer(delay, new BubbleListener() );
 		bubbleList = new ArrayList<Bubble>();
@@ -129,12 +131,13 @@ public class BubblePanel extends JPanel {
 					rand.nextInt(256),
 					rand.nextInt(256),
 					rand.nextInt(256) );
-			xspeed = rand.nextInt(MAX_SPEED * 2 + 1) - MAX_SPEED;
-			yspeed = rand.nextInt(MAX_SPEED * 2 + 1) - MAX_SPEED;
-			if (xspeed == 0)
-                xspeed = 1;
-            if (yspeed == 0)
-                yspeed = 1;
+			 xspeed = yspeed = 2;
+			//xspeed = rand.nextInt(MAX_SPEED * 2 + 1) - MAX_SPEED;
+			//yspeed = rand.nextInt(MAX_SPEED * 2 + 1) - MAX_SPEED;
+			//if (xspeed == 0)
+              //  xspeed = 1;
+            //if (yspeed == 0)
+              //  yspeed = 1;
 		}
 		public void draw(Graphics canvas) {
 			canvas.setColor(color);
