@@ -115,6 +115,10 @@ public class BubblePanel extends JPanel {
 		public void update() {
 			x += xspeed;
 			y += yspeed;
+			if (x - size/2 <= 0 || x + size/2 >= getWidth())
+				xspeed = -xspeed;
+			if (y - size/2 <= 0 || y + size/2 >= getHeight())
+				yspeed = -yspeed;
 		}
 	}
 }
